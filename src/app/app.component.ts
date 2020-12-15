@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 
+import { Book } from './model/book';
+
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -7,4 +10,9 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'ex3and4';
+
+
+  constructor() {
+
+  }
 }

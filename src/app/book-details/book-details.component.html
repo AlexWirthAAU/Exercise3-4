@@ -1,0 +1,21 @@
+<h1>{{book.title}}</h1>
+
+<section *ngIf="book != null">
+    <h2>Details</h2>
+
+    <p>ISBN: {{book.isbn}}</p>
+    <p>Autoren: </p>
+    <ul *ngFor="let author of book.authors">{{author}}</ul>
+    <p>Seitenzahl: {{book.pageCount}}</p>
+    <p>Kategorien: </p>
+    <ul *ngFor="let cat of book.categories">{{cat}}</ul>
+    <p>Status: {{book.rented? "Ausgeliehen" : "Frei"}}</p>
+    <hr>
+    <b>Kurz-Beschreibung: </b>
+    <p>{{book.shortDescription}}</p>
+    <hr>
+    <b>Lang-Beschreibung</b>
+    <p>{{book.longDescription}}</p>
+    <hr>
+    <a href={{book.thumbnailUrl}}>Thumbnail</a>
+</section>

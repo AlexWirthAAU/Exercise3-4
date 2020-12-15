@@ -1,0 +1,10 @@
+
+<div class="bookCard">
+    <h1>Book</h1>
+    <p>{{book.title}}</p>
+    <p>{{book.isbn}}</p>
+    <a [routerLink]="['/bookDetails/', book.isbn]" routerLinkActive="active">Buch-Details</a><br>
+    <button *ngIf="!book.rented" (click)="makeRented()">Rent</button> 
+    <button *ngIf="book.rented" (click)="makeReturned()">Return</button>
+</div>
+

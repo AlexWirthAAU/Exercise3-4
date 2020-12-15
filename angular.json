@@ -119,6 +119,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "ex3and4"
+    }
+  },
+  "defaultProject": "ex3and4",
+  "cli": {
+    "analytics": "8375efed-a1f9-473b-b347-13783599a86d"
+  }
 }

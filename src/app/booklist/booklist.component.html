@@ -1,0 +1,71 @@
+<h1>I am the List Component</h1>
+
+<div>
+    <input type="text" name="filter" id="filter" placeholder="Enter the book-title" [(ngModel)]="filter">
+    <table>
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Authors</th>
+                <th>ISBN</th>
+                <th>State</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let book of filteredList()">
+                <td>{{ book.title }}</td>
+                <td>{{ book.authors }}</td>
+                <td>{{ book.isbn }}</td>
+                <td>{{ book.rented ? "rented" : "not rented"}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div>
+    <table>
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Authors</th>
+                <th>ISBN</th>
+                <th>State</th>
+            </tr>
+        </thead>
+        <tbody *ngIf="booklist && booklist.length > 0 && filteredList().length === 0">
+            <tr *ngFor="let book of booklist">
+                <td>{{ book.title }}</td>
+                <td>{{ book.authors }}</td>
+                <td>{{ book.isbn }}</td>
+                <td>{{ book.rented ? "rented" : "not rented"}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<h2 *ngIf="stateMessage != null">{{stateMessage}}</h2>
+
+<div>
+    <form #newBookForm="ngForm">
+        <fieldset>
+            <legend>New Book</legend>
+            <input type="text" name="title" id="title" placeholder="Enter the book-title" required
+                [(ngModel)]="newBook.title"><br>
+            <input type="text" name="isbn" id="isbn" placeholder="Enter ISBN" required [(ngModel)]="newBook.isbn"><br>
+            Rented: <input type="checkbox" name="status" id="status" [(ngModel)]="newBook.rented"><br>
+            <input type="text" name="addauthor" id="addauthor" placeholder="Enter name of the author" [(ngModel)]="author"><br>
+            <select id="authors" name="authors" [(ngModel)]="authorToDelete">
+                <option [value]="author" *ngFor="let author of newBook.authors">
+                    {{author}}
+                </option>
+            </select><br>
+            <button (click)="addauthor()">Add Author</button>
+            <button (click)="deleteauthor()">Delete Author</button>
+            <p *ngIf="addAuthorError != null">{{addAuthorError}}</p>
+            <button type="submit" (click)="addBook()" [disabled]="newBookForm.invalid">Add new book</button><br>
+        </fieldset>
+    </form>
+</div>
+<div *ngIf="errorMessage != null">{{errorMessage}}</div>
+
+<app-book *ngFor="let book of booklist" [book]="book" (onMakeRented) = "bookRented($event)" (onMakeReturned) = "bookReturned($event)"></app-book>
