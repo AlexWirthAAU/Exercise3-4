@@ -12,6 +12,7 @@ export class BooklistComponent implements OnInit {
   newBook: Book;
   errorMessage: string = null;
   stateMessage: string = null;
+  noBookFound: string = null;
   filter: string;
   author: string;
   authorToDelete: string;
@@ -60,7 +61,12 @@ export class BooklistComponent implements OnInit {
   }
 
   filteredList(): Book[] {
-    return this.library.filterBooksByTitle(this.filter)
+    this.noBookFound = null;
+    let filteredBooks = this.library.filterBooksByTitle(this.filter);
+    if(filteredBooks.length === 0) {
+      this.noBookFound = "No books found";
+    }
+    return filteredBooks;
   }
 
   addauthor() {

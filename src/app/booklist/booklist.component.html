@@ -1,8 +1,10 @@
 <h1>I am the List Component</h1>
 
+
+<b *ngIf="noBookFound !== null">{{noBookFound}}</b>
 <div>
     <input type="text" name="filter" id="filter" placeholder="Enter the book-title" [(ngModel)]="filter">
-    <table>
+    <table *ngIf="filteredList().length > 0">
         <thead>
             <tr>
                 <th>Title</th>
@@ -23,7 +25,7 @@
 </div>
 
 <div>
-    <table>
+    <table *ngIf="booklist && booklist.length > 0 && filteredList().length === 0 && noBookFound === null">
         <thead>
             <tr>
                 <th>Title</th>
@@ -32,7 +34,7 @@
                 <th>State</th>
             </tr>
         </thead>
-        <tbody *ngIf="booklist && booklist.length > 0 && filteredList().length === 0">
+        <tbody>
             <tr *ngFor="let book of booklist">
                 <td>{{ book.title }}</td>
                 <td>{{ book.authors }}</td>
@@ -68,4 +70,9 @@
 </div>
 <div *ngIf="errorMessage != null">{{errorMessage}}</div>
 
-<app-book *ngFor="let book of booklist" [book]="book" (onMakeRented) = "bookRented($event)" (onMakeReturned) = "bookReturned($event)"></app-book>
+<div *ngIf="filteredList().length === 0 && noBookFound === null">
+    <app-book *ngFor="let book of booklist" [book]="book" (onMakeRented) = "bookRented($event)" (onMakeReturned) = "bookReturned($event)"></app-book>
+</div>
+<div *ngIf="filteredList().length > 0">
+    <app-book *ngFor="let book of filteredList()" [book]="book" (onMakeRented) = "bookRented($event)" (onMakeReturned) = "bookReturned($event)"></app-book> 
+</div>

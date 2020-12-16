@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { LibraryService } from '../library.service';
 import { Book } from '../model/book';
 
 
@@ -12,19 +13,17 @@ export class BookComponent implements OnInit {
   @Output() onMakeRented:  EventEmitter<Book> = new EventEmitter();
   @Output() onMakeReturned:  EventEmitter<Book> = new EventEmitter();
 
-  constructor() { }
+  constructor(public library: LibraryService) { }
 
   ngOnInit(): void {
   }
 
   makeRented() {
-    this.book.rented = !this.book.rented;
-    this.onMakeRented.emit(this.book);
+    this.onMakeRented.emit(this.library.rentBook(this.book));
   }
 
   makeReturned() {
-    this.book.rented = !this.book.rented;
-    this.onMakeReturned.emit(this.book);
+    this.onMakeReturned.emit(this.library.returnBook(this.book));
   }
 
 }
